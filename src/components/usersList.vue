@@ -5,12 +5,15 @@
 
   <div class="usersList__list">
     <div class="usersList__top">
-      <input
-        type="search"
-        class="usersList__search"
-        v-model="searchValue"
-        placeholder="search for users"
-      />
+      <div class="usersList__top-search">
+        <font-awesome-icon icon="fa-solid fa-search" />
+        <input
+          type="text"
+          class="usersList__search"
+          v-model="searchValue"
+          placeholder="search for users"
+        />
+      </div>
       <button @click="$emit('toggleDetail')" class="usersList__top--add">
         <font-awesome-icon icon="fa-solid fa-plus" />
         Add User

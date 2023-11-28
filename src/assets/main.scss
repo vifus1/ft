@@ -22,6 +22,18 @@ body {
 		justify-content: space-between;
 		align-items: center;
 
+		&-search {
+			position: relative;
+			
+			svg {
+				position: absolute;
+				bottom: 0;
+				top: 0;
+				margin: auto;
+				right: 10px;
+			}
+		}
+
 		&--add {
 			height: 47px;
 			color: #fff;
