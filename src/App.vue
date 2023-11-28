@@ -1,12 +1,8 @@
 <template>
   <div class="container">
     <notifications />
-    <usersList v-if="detail === true" @toggleDetail="toggleDetail" />
-    <userDetail
-      :uid="uid"
-      v-else-if="detail === false"
-      @toggleDetail="toggleDetail"
-    />
+    <usersList v-if="detail" @toggleDetail="toggleDetail" />
+    <userDetail :uid="uid" v-else-if="!detail" @toggleDetail="toggleDetail" />
   </div>
 </template>
 
