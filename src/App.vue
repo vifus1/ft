@@ -1,22 +1,16 @@
 <template>
   <div class="container">
     <notifications />
-    <usersList v-if="detail" @toggleDetail="toggleDetail" />
-    <userDetail :uid="uid" v-else-if="!detail" @toggleDetail="toggleDetail" />
+    <router-view :key="$route.path"></router-view>
   </div>
 </template>
 
 <script>
-import usersList from "./components/usersList.vue";
-import userDetail from "./components/userDetail.vue";
 import { ref } from "vue";
 
 export default {
   name: "App",
-  components: {
-    usersList,
-    userDetail,
-  },
+  components: {},
   setup() {
     const detail = ref(true);
     const uid = ref();

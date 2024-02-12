@@ -44,21 +44,18 @@
 import { useStore } from "vuex";
 import { computed, ref, watch } from "vue";
 import { useNotification } from "@kyvg/vue3-notification";
+import { useRoute } from "vue-router";
+import router from "../router";
 
 export default {
   name: "usersList",
   components: {},
-  props: {
-    uid: {
-      type: Number,
-      required: false,
-    },
-  },
-  emits: ["toggleDetail"],
-  setup(props, context) {
+  setup() {
     const store = useStore();
-    if (props.uid) {
-      store.dispatch("getUserData", props.uid);
+    const route = useRoute();
+
+    if (route.params.id) {
+      store.dispatch("getUserData", route.params.id);
     }
     const notification = useNotification();
     const userData = computed(() => store.getters.getUserData);
@@ -67,6 +64,7 @@ export default {
     const firstname = ref("");
     const lastname = ref("");
     const avatar = ref("");
+    const uid = route.params.id;
 
     const updateDetails = () => {
       if (firstname.value !== "" && lastname.value !== "") {
@@ -74,7 +72,7 @@ export default {
           first_name: firstname.value,
           last_name: lastname.value,
           avatar: avatar.value,
-          uid: props.uid,
+          uid: uid,
         });
       } else {
         notification.notify({
@@ -112,7 +110,10 @@ export default {
       () => userUpdate.value,
       function (newValue) {
         if (newValue.status === 200) {
-          context.emit("toggleDetail");
+          router.push({
+            name: "Home",
+            path: "/",
+          });
         }
       }
     );
@@ -121,7 +122,10 @@ export default {
       () => userAdd.value,
       function (newValue) {
         if (newValue.status === 201) {
-          context.emit("toggleDetail");
+          router.push({
+            name: "Home",
+            path: "/",
+          });
         }
       }
     );
@@ -132,6 +136,7 @@ export default {
       avatar,
       updateDetails,
       addUser,
+      uid,
     };
   },
 };

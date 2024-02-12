@@ -14,10 +14,12 @@
           placeholder="search for users"
         />
       </div>
-      <button @click="$emit('toggleDetail')" class="usersList__top--add">
-        <font-awesome-icon icon="fa-solid fa-plus" />
-        Add User
-      </button>
+      <router-link to="/adduser" class="submenu__item">
+        <button class="usersList__top--add">
+          <font-awesome-icon icon="fa-solid fa-plus" />
+          Add User
+        </button>
+      </router-link>
     </div>
 
     <table>
@@ -31,10 +33,9 @@
           <td><img :src="user.avatar" /></td>
           <td>{{ user.first_name }} {{ user.last_name }}</td>
           <td class="icons">
-            <font-awesome-icon
-              @click="$emit('toggleDetail', user.id)"
-              icon="fa-solid fa-edit"
-            />
+            <router-link :to="'/edit/' + user.id" class="submenu__item">
+              <font-awesome-icon icon="fa-solid fa-edit" />
+            </router-link>
             <font-awesome-icon
               @click="deleteUser(user.id)"
               icon="fa-solid fa-trash-can"
@@ -67,7 +68,6 @@ export default {
     msg: String,
   },
   components: {},
-  emits: ["toggleDetail"],
   setup() {
     const store = useStore();
     store.dispatch("getUsersData");
